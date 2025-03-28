@@ -1,6 +1,17 @@
+
+function(metal_to_metallib_h SRC TGT)
+    file(READ ${SRC} SHADER_CONTENT)
+    file(WRITE ${TGT} "#include <ATen/native/mps/OperationUtils.h>\n")
+    file(APPEND ${TGT} "static ::at::native::mps::MetalShaderLibrary lib(R\"SHDR(\n")
+    file(APPEND ${TGT} "${SHADER_CONTENT}")
+    file(APPEND ${TGT} ")SHDR\");\n")
+endfunction()
+
 if(NOT APPLE)
     return()
 endif()
+
+
 
 set(METAL_CFLAGS -Wall -Wextra -fno-fast-math)
 if(WERROR)
