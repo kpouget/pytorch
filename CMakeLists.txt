@@ -111,6 +111,7 @@ if(NOT DEFINED BLAS_SET_BY_USER)
             "Marks whether BLAS was manually set by user or auto-detected")
 endif()
 
+set(MPS_FOUND ON)
 # Apple specific
 if(APPLE)
   # These lines are an attempt to make find_package(cuda) pick up libcuda.dylib,
@@ -1176,6 +1177,9 @@ if(USE_CPP_CODE_COVERAGE)
   endif()
 
 endif()
+
+string(APPEND CMAKE_OBJCXX_FLAGS " -DUSE_MPS")
+string(APPEND CMAKE_CXX_FLAGS " -DUSE_MPS")
 
 if(APPLE)
   if(USE_MPS)
